@@ -1,0 +1,7 @@
+{
+  "name": "LancarHijaiyahApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
