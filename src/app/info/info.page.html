@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>ℹ️ Info & Privasi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="info-hero">
+    <div class="app-icon">🎮</div>
+    <h1>Lancar Hijaiyah</h1>
+    <p class="tagline">Game belajar huruf hijaiyah yang seru & interaktif! 🌟</p>
+  </div>
+
+  <div class="info-sections">
+
+    <!-- Tentang -->
+    <div class="info-card">
+      <div class="card-header">
+        <ion-icon name="information-circle" color="primary"></ion-icon>
+        <h3>Tentang Aplikasi</h3>
+      </div>
+      <p>
+        <strong>Lancar Hijaiyah</strong> adalah game edukasi belajar huruf hijaiyah
+        yang dirancang agar belajar terasa menyenangkan. Dengan sistem XP, level,
+        combo, dan badge, kamu bisa memantau perkembanganmu sambil tetap semangat belajar!
+      </p>
+    </div>
+
+    <!-- Cara Main -->
+    <div class="info-card">
+      <div class="card-header">
+        <ion-icon name="game-controller" color="tertiary"></ion-icon>
+        <h3>Cara Main</h3>
+      </div>
+      <div class="howto-list">
+        <div class="howto-item">
+          <div class="howto-number">1</div>
+          <p>Pilih <strong>Level</strong> sesuai kemampuanmu, mulai dari Level 1</p>
+        </div>
+        <div class="howto-item">
+          <div class="howto-number">2</div>
+          <p>Baca materi dan <strong>ketuk huruf</strong> untuk dengar pelafalannya</p>
+        </div>
+        <div class="howto-item">
+          <div class="howto-number">3</div>
+          <p>Tandai halaman <strong>selesai</strong> untuk dapat XP dan unlock badge</p>
+        </div>
+        <div class="howto-item">
+          <div class="howto-number">4</div>
+          <p>Main <strong>Mini Game</strong> untuk uji kemampuan dan kumpulkan lebih banyak XP</p>
+        </div>
+        <div class="howto-item">
+          <div class="howto-number">5</div>
+          <p>Jaga <strong>streak harian</strong> agar tidak putus dan raih badge streak!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kebijakan Privasi -->
+    <div class="info-card">
+      <div class="card-header">
+        <ion-icon name="shield-checkmark" color="success"></ion-icon>
+        <h3>Kebijakan Privasi</h3>
+      </div>
+      <div class="privacy-content">
+        <p>Kami berkomitmen menjaga privasi Anda:</p>
+        <div class="privacy-item">
+          <ion-icon name="checkmark-circle" color="success"></ion-icon>
+          <span>Tidak mengumpulkan data pribadi pengguna</span>
+        </div>
+        <div class="privacy-item">
+          <ion-icon name="checkmark-circle" color="success"></ion-icon>
+          <span>Semua data tersimpan <strong>hanya di perangkat Anda</strong></span>
+        </div>
+        <div class="privacy-item">
+          <ion-icon name="checkmark-circle" color="success"></ion-icon>
+          <span>Tidak ada iklan atau pelacakan aktivitas</span>
+        </div>
+        <div class="privacy-item">
+          <ion-icon name="checkmark-circle" color="success"></ion-icon>
+          <span>Dapat dimainkan sepenuhnya <strong>offline</strong></span>
+        </div>
+      </div>
+      <ion-button expand="block" fill="outline" color="success" (click)="openPrivacyPolicy()">
+        <ion-icon name="open" slot="start"></ion-icon>
+        Baca Kebijakan Lengkap
+      </ion-button>
+    </div>
+
+  </div>
+
+  <div class="footer-note">
+    <p>Semoga membantu perjalanan belajar hijaiyahmu!</p>
+    <p style="color:#aaa;font-size:0.75rem">© 2025 Lancar Hijaiyah</p>
+  </div>
+
+</ion-content>

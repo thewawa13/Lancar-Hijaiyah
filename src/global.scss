@@ -35,3 +35,49 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+* {
+  font-family: 'Nunito', sans-serif;
+}
+
+ion-content {
+  --background: #f7f49a;
+}
+
+ion-toolbar {
+  --background: linear-gradient(135deg, #2ecc71, #27ae60);
+  --color: white;
+}
+
+ion-title {
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+.bounce-card {
+  animation: bounceIn 0.5s ease forwards;
+}
+
+@keyframes bounceIn {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.pulse-btn {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(46,204,113,0.5); }
+  70%  { box-shadow: 0 0 0 14px rgba(46,204,113,0); }
+  100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
+}
+
+.arabic-text {
+  font-family: 'Traditional Arabic', 'Scheherazade New', serif;
+  direction: rtl;
+}

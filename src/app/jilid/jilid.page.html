@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar [style.--background]="currentJilid?.gradient?.[0]">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">{{ currentJilid?.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="bookmarkCurrent()" fill="clear" color="light">
+        <ion-icon name="bookmark-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="currentJilid">
+
+  <!-- Jilid Header -->
+  <div class="jilid-header"
+    [style.background]="'linear-gradient(135deg,' + currentJilid.gradient[0] + ',' + currentJilid.gradient[1] + ')'">
+    <div class="jilid-header-emoji">{{ currentJilid.emoji }}</div>
+    <h1>{{ currentJilid.title }}</h1>
+    <p>{{ currentJilid.subtitle }}</p>
+    <div class="jilid-stats">
+      <div class="stat-item">
+        <ion-icon name="document-text"></ion-icon>
+        <span>{{ currentJilid.totalPages }} Halaman</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <ion-icon name="checkmark-done"></ion-icon>
+        <span>{{ completedPages }} Selesai</span>
+      </div>
+    </div>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill"
+          [style.width]="(completedPages / currentJilid.totalPages * 100) + '%'">
+        </div>
+      </div>
+      <span class="progress-text">{{ (completedPages / currentJilid.totalPages * 100) | number:'1.0-0' }}%</span>
+    </div>
+  </div>
+
+  <!-- Daftar Halaman -->
+  <div class="pages-section">
+    <h3 class="pages-title">Daftar Halaman</h3>
+
+    <div class="page-item"
+      *ngFor="let page of currentJilid.pages"
+      (click)="goToPage(page.pageNumber)"
+      [class.completed]="page.pageNumber <= completedPages">
+
+      <div class="page-number-badge"
+        [style.background]="page.pageNumber <= completedPages
+          ? currentJilid.gradient[0]
+          : '#e8f8f0'">
+        <span [style.color]="page.pageNumber <= completedPages ? 'white' : currentJilid.gradient[0]">
+          {{ page.pageNumber }}
+        </span>
+      </div>
+
+      <div class="page-info">
+        <h4>{{ page.title }}</h4>
+      </div>
+
+      <div class="page-status">
+        <ion-icon
+          [name]="page.pageNumber <= completedPages ? 'checkmark-circle' : 'play-circle'"
+          [color]="page.pageNumber <= completedPages ? 'success' : 'medium'"
+          size="large">
+        </ion-icon>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

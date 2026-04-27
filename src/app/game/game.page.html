@@ -1,0 +1,140 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tebak Huruf!</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Stats Header -->
+  <div class="game-header">
+    <div class="game-stat-pill">
+      <span>❤️</span>
+      <span class="pill-val">{{ lives }}</span>
+    </div>
+    <div class="game-stat-pill score-pill">
+      <span>⭐</span>
+      <span class="pill-val">{{ score }}</span>
+    </div>
+    <div class="game-stat-pill">
+      <span>🔥</span>
+      <span class="pill-val">{{ combo }}x</span>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="question-progress">
+    <div class="q-progress-fill"
+      [style.width]="(currentQ / totalQ * 100) + '%'">
+    </div>
+    <span class="q-label">{{ currentQ }}/{{ totalQ }}</span>
+  </div>
+
+  <!-- Game Over Screen -->
+  <div class="result-screen" *ngIf="gameOver">
+    <div class="result-emoji">{{ score >= totalQ * 10 ? '🏆' : score >= totalQ * 5 ? '⭐' : '😢' }}</div>
+    <h2>{{ score >= totalQ * 10 ? 'Sempurna!' : score >= totalQ * 5 ? 'Bagus!' : 'Coba Lagi!' }}</h2>
+    <div class="result-score">
+      <span class="score-big">{{ score }}</span>
+      <span class="score-label">Poin</span>
+    </div>
+    <div class="result-detail">
+      <div class="detail-item">
+        <span>✅ Benar</span>
+        <strong>{{ correctCount }}</strong>
+      </div>
+      <div class="detail-item">
+        <span>❌ Salah</span>
+        <strong>{{ wrongCount }}</strong>
+      </div>
+      <div class="detail-item">
+        <span>🔥 Combo Max</span>
+        <strong>{{ maxCombo }}x</strong>
+      </div>
+    </div>
+    <div class="result-xp" *ngIf="xpGained > 0">
+      +{{ xpGained }} XP didapat! ⚡
+    </div>
+    <ion-button expand="block" color="success" (click)="restartGame()" class="result-btn">
+      <ion-icon name="refresh" slot="start"></ion-icon>
+      Main Lagi
+    </ion-button>
+    <ion-button expand="block" fill="outline" color="medium" routerLink="/home" class="result-btn">
+      <ion-icon name="home" slot="start"></ion-icon>
+      Ke Beranda
+    </ion-button>
+  </div>
+
+  <!-- Question Screen -->
+  <div class="question-screen" *ngIf="!gameOver && currentQuestion">
+
+    <!-- Mode Badge -->
+    <div class="mode-badge">
+      <span *ngIf="currentQuestion.mode === 'arabic-to-latin'">🔤 Arab → Latin</span>
+      <span *ngIf="currentQuestion.mode === 'latin-to-arabic'">🔡 Latin → Arab</span>
+      <span *ngIf="currentQuestion.mode === 'audio-to-arabic'">🔊 Dengar → Arab</span>
+    </div>
+
+    <!-- Question Card -->
+    <div class="question-card" [class.shake]="isShaking">
+      <div class="question-glow" [style.background]="currentColor"></div>
+
+      <!-- Audio Mode -->
+      <div *ngIf="currentQuestion.mode === 'audio-to-arabic'" class="audio-question">
+        <button class="audio-big-btn pulse-btn" (click)="playCurrentAudio()">
+          <span class="audio-icon">🔊</span>
+          <span>Dengarkan</span>
+        </button>
+        <p class="audio-hint">Ketuk untuk dengar, lalu pilih hurufnya!</p>
+      </div>
+
+      <!-- Text Mode -->
+      <div *ngIf="currentQuestion.mode !== 'audio-to-arabic'" class="text-question">
+        <div class="question-text"
+          [class.arabic-text]="currentQuestion.mode === 'arabic-to-latin'">
+          {{ currentQuestion.question }}
+        </div>
+        <div class="question-hint">
+          {{ currentQuestion.mode === 'arabic-to-latin' ? 'Huruf apa ini?' : 'Pilih huruf Arab yang benar!' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Answer Options -->
+    <div class="options-grid">
+      <button
+        class="option-btn"
+        *ngFor="let opt of currentQuestion.options; let i = index"
+        [class.correct]="showAnswer && opt === currentQuestion.answer"
+        [class.wrong]="showAnswer && opt === selectedAnswer && opt !== currentQuestion.answer"
+        [class.arabic-text]="currentQuestion.mode === 'arabic-to-latin' ? false : currentQuestion.mode === 'latin-to-arabic'"
+        [disabled]="showAnswer"
+        (click)="selectAnswer(opt)"
+      >
+        <span class="option-letter">{{ ['A','B','C','D'][i] }}</span>
+        <span class="option-text"
+          [class.arabic-text]="currentQuestion.mode !== 'arabic-to-latin'">
+          {{ opt }}
+        </span>
+      </button>
+    </div>
+
+    <!-- Feedback -->
+    <div class="feedback-bar" *ngIf="showAnswer" [class.correct-feedback]="isCorrect" [class.wrong-feedback]="!isCorrect">
+      <span>{{ isCorrect ? '✅ Benar! +' + gainedPoints + ' poin' : '❌ Salah! Jawaban: ' + currentQuestion.answer }}</span>
+      <span *ngIf="isCorrect && combo > 1" class="combo-text">🔥 {{ combo }}x Combo!</span>
+    </div>
+
+    <!-- Next Button -->
+    <div class="next-section" *ngIf="showAnswer">
+      <ion-button expand="block" [color]="isCorrect ? 'success' : 'warning'" (click)="nextQuestion()" class="next-btn">
+        {{ currentQ >= totalQ ? '🏁 Lihat Hasil' : 'Lanjut ➡️' }}
+      </ion-button>
+    </div>
+
+  </div>
+
+</ion-content>

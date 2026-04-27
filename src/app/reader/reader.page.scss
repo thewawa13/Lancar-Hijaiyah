@@ -1,0 +1,200 @@
+.tips-banner {
+  background: #fff9e6;
+  border-left: 4px solid #f39c12;
+  margin: 12px 16px 0;
+  padding: 10px 14px;
+  border-radius: 0 12px 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #7d5a00;
+  font-weight: 600;
+  ion-icon { font-size: 1.2rem; flex-shrink: 0; }
+}
+
+.instruction-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 0.82rem;
+  color: #555;
+  ion-icon { font-size: 1.1rem; }
+}
+
+.letters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  padding: 4px 16px 16px;
+
+  &.big-grid {
+    grid-template-columns: 1fr;
+    .letter-card { min-height: 180px; }
+    .arabic-letter { font-size: 3.5rem !important; }
+  }
+}
+
+.letter-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  border: 2px solid transparent;
+  min-height: 140px;
+  animation: popIn 0.4s ease forwards;
+  opacity: 0;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.2s;
+
+  &:active { transform: scale(0.95); }
+
+  &.playing {
+    border-color: var(--card-color);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.15), 0 0 0 4px rgba(var(--card-color), 0.15);
+
+    .arabic-letter {
+      animation: bounce 0.6s ease infinite alternate;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--card-color, #2ecc71);
+    border-radius: 20px 20px 0 0;
+  }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8) translateY(10px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-6px); }
+}
+
+.ripple-circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: var(--card-color, #2ecc71);
+  opacity: 0;
+  animation: rippleOut 0.8s ease-out infinite;
+}
+
+@keyframes rippleOut {
+  0%   { transform: scale(0.8); opacity: 0.25; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+.audio-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ion-icon { font-size: 0.9rem; color: #aaa; }
+
+  &.active {
+    background: var(--card-color, #2ecc71);
+    animation: pulse 1s infinite;
+    ion-icon { color: white; }
+  }
+}
+
+.arabic-container {
+  margin-bottom: 10px;
+}
+
+.arabic-letter {
+  font-size: 2.8rem;
+  color: #2c3e50;
+  line-height: 1.3;
+  display: block;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.latin-container {
+  background: var(--card-color, #2ecc71);
+  border-radius: 20px;
+  padding: 4px 14px;
+  margin-bottom: 8px;
+}
+
+.latin-text {
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.tap-hint {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: #bbb;
+  font-size: 0.7rem;
+  ion-icon { font-size: 0.75rem; }
+}
+
+.navigation-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  gap: 12px;
+}
+
+.nav-btn {
+  flex: 1;
+  --border-radius: 14px;
+}
+
+.page-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: white;
+  border-radius: 14px;
+  padding: 8px 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+
+  .current-page {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #2c3e50;
+  }
+  .separator { color: #aaa; font-size: 1rem; }
+  .total-pages { font-size: 0.9rem; color: #7f8c8d; font-weight: 600; }
+}
+
+.done-section {
+  padding: 8px 16px 32px;
+}
+
+.done-btn {
+  --border-radius: 16px;
+  height: 52px;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}

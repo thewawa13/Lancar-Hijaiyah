@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>🔖 Bookmark Saya</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Has Bookmark -->
+  <div class="bookmark-container" *ngIf="bookmark">
+    <div class="bookmark-card">
+      <div class="bookmark-icon-wrapper">
+        <ion-icon name="bookmark" color="warning" class="big-bookmark-icon"></ion-icon>
+      </div>
+      <h2>📍 Terakhir Dibaca</h2>
+      <div class="bookmark-detail-card">
+        <div class="detail-row">
+          <ion-icon name="library" color="primary"></ion-icon>
+          <div>
+            <span class="detail-label">Jilid</span>
+            <span class="detail-value">{{ bookmark.jilidTitle }}</span>
+          </div>
+        </div>
+        <div class="detail-row">
+          <ion-icon name="document-text" color="success"></ion-icon>
+          <div>
+            <span class="detail-label">Halaman</span>
+            <span class="detail-value">{{ bookmark.pageTitle }}</span>
+          </div>
+        </div>
+        <div class="detail-row">
+          <ion-icon name="time" color="warning"></ion-icon>
+          <div>
+            <span class="detail-label">Disimpan</span>
+            <span class="detail-value">{{ bookmark.savedAt | date:'dd MMM yyyy, HH:mm' }}</span>
+          </div>
+        </div>
+      </div>
+      <ion-button expand="block" color="success" (click)="goToBookmark()" class="go-btn">
+        <ion-icon name="play" slot="start"></ion-icon>
+        Lanjutkan Belajar
+      </ion-button>
+      <ion-button expand="block" fill="outline" color="danger" (click)="clearBookmark()" class="clear-btn">
+        <ion-icon name="trash" slot="start"></ion-icon>
+        Hapus Bookmark
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- No Bookmark -->
+  <div class="empty-state" *ngIf="!bookmark">
+    <div class="empty-emoji">📭</div>
+    <h3>Belum Ada Bookmark</h3>
+    <p>Buka halaman materi, lalu ketuk ikon bookmark untuk menyimpan posisi belajarmu.</p>
+    <ion-button routerLink="/home" color="success" fill="outline">
+      <ion-icon name="home" slot="start"></ion-icon>
+      Ke Beranda
+    </ion-button>
+  </div>
+
+</ion-content>

@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar [style.--background]="currentJilid?.gradient?.[0]">
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="'/jilid/' + jilidId" text="" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">{{ currentPage?.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="saveBookmark()" fill="clear" color="light">
+        <ion-icon name="bookmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="currentPage && currentJilid">
+
+  <!-- Tips Banner -->
+  <div class="tips-banner" *ngIf="currentPage.notes">
+    <ion-icon name="bulb" color="warning"></ion-icon>
+    <span>{{ currentPage.notes }}</span>
+  </div>
+
+  <!-- Audio Instruction -->
+  <div class="instruction-bar">
+    <ion-icon name="volume-high" color="primary"></ion-icon>
+    <span>Ketuk huruf untuk mendengar pelafalannya</span>
+  </div>
+
+  <div class="letters-grid" [class.big-grid]="currentPage.letters.length <= 2">
+
+    <div
+      class="letter-card"
+      *ngFor="let letter of currentPage.letters; let i = index"
+      [class.playing]="playingId === letter.id"
+      [style.--card-color]="letter.color || currentJilid.gradient[0]"
+      [style.animation-delay]="i * 0.08 + 's'"
+      (click)="playLetter(letter)"
+    >
+      <!-- Ripple effect -->
+      <div class="ripple-circle" *ngIf="playingId === letter.id"></div>
+
+      <!-- Audio Icon -->
+      <div class="audio-indicator" [class.active]="playingId === letter.id">
+        <ion-icon [name]="playingId === letter.id ? 'volume-high' : 'volume-medium'"></ion-icon>
+      </div>
+
+      <!-- Arabic Text -->
+      <div class="arabic-container">
+        <span class="arabic-letter arabic-text">{{ letter.arabic }}</span>
+      </div>
+
+      <!-- Latin Text -->
+      <div class="latin-container">
+        <span class="latin-text">{{ letter.latin }}</span>
+      </div>
+
+      <!-- Tap hint -->
+      <div class="tap-hint">
+        <ion-icon name="finger-print"></ion-icon>
+        <span>Ketuk</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Navigation -->
+  <div class="navigation-bar">
+    <ion-button
+      fill="outline"
+      [color]="jilidColor"
+      (click)="prevPage()"
+      [disabled]="pageNum <= 1"
+      class="nav-btn">
+      <ion-icon name="chevron-back" slot="start"></ion-icon>
+      Prev
+    </ion-button>
+
+    <div class="page-indicator">
+      <span class="current-page">{{ pageNum }}</span>
+      <span class="separator">/</span>
+      <span class="total-pages">{{ currentJilid.totalPages }}</span>
+    </div>
+
+    <ion-button
+      [color]="jilidColor"
+      (click)="nextPage()"
+      [disabled]="pageNum >= currentJilid.totalPages"
+      class="nav-btn">
+      Lanjut
+      <ion-icon name="chevron-forward" slot="end"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- Mark Done Button -->
+  <div class="done-section">
+    <ion-button
+      expand="block"
+      [color]="jilidColor"
+      (click)="markDone()"
+      class="done-btn"
+      [disabled]="pageNum <= (completedPages || 0)"
+    >
+      <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+      {{ pageNum <= (completedPages || 0) ? '✅ Halaman Selesai' : 'Tandai Selesai' }}
+    </ion-button>
+  </div>
+
+</ion-content>

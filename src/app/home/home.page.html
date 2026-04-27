@@ -1,20 +1,157 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+      Lancar Hijaiyah
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/bookmark" fill="clear" color="light">
+        <ion-icon name="bookmark" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/info" fill="clear" color="light">
+        <ion-icon name="information-circle" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="hero-banner">
+    <div class="hero-content">
+      <div class="hero-emoji">📖</div>
+      <h1 class="hero-title">Lancar Hijaiyah<br><span>Belajar Sambil Bermain!</span></h1>
+      <p class="hero-subtitle">Kumpulkan XP & raih semua badge! 🏆</p>
+    </div>
+    <div class="hero-shapes">
+      <div class="shape shape-1">✨</div>
+      <div class="shape shape-2">⭐</div>
+      <div class="shape shape-3">🌙</div>
+    </div>
   </div>
+
+  <!-- GAME STATS BAR -->
+  <div class="game-stats-bar" *ngIf="gameStats">
+
+    <!-- Level -->
+    <div class="stat-card level-card">
+      <span class="stat-emoji">🎮</span>
+      <div class="stat-info">
+        <span class="stat-label">Level</span>
+        <span class="stat-value">{{ gameStats.level }}</span>
+      </div>
+    </div>
+
+    <!-- XP Bar -->
+    <div class="stat-card xp-card">
+      <span class="stat-emoji">⚡</span>
+      <div class="stat-info">
+        <span class="stat-label">XP {{ gameStats.totalXP }} / {{ gameStats.level * 100 }}</span>
+        <div class="xp-bar">
+          <div class="xp-fill"
+            [style.width]="getXPPercent() + '%'">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- streak -->
+    <div class="stat-card streak-card">
+      <span class="stat-emoji">🔥</span>
+      <div class="stat-info">
+        <span class="stat-label">Streak</span>
+        <span class="stat-value">{{ gameStats.streak }}d</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Badge Row -->
+  <div class="badge-row" *ngIf="gameStats && gameStats.badges.length > 0">
+    <span class="badge-title">🏅 Badge Kamu:</span>
+    <div class="badge-scroll">
+      <span class="badge-chip" *ngFor="let badge of gameStats.badges">{{ badge }}</span>
+    </div>
+  </div>
+
+ <!-- Bookmark Banner -->
+<div class="bookmark-banner" *ngIf="lastBookmark" (click)="goToBookmark()">
+  <ion-icon name="bookmark" color="warning"></ion-icon>
+  <div class="bookmark-info">
+    <span class="bookmark-label">Lanjutkan Belajar</span>
+    <span class="bookmark-detail">{{ lastBookmark.jilidTitle }} &nbsp;·&nbsp; {{ lastBookmark.pageTitle }}</span>
+  </div>
+  <ion-icon name="chevron-forward" color="medium"></ion-icon>
+</div>
+
+  <!-- Game Banner -->
+<div class="game-banner" routerLink="/game">
+  <div class="game-banner-left">
+    <span class="game-banner-emoji">🎮</span>
+    <div>
+      <h3>Mini Game</h3>
+      <p>Tebak Huruf Hijaiyah!</p>
+    </div>
+  </div>
+  <div class="game-banner-right">
+    <div class="play-btn">
+      <ion-icon name="play"></ion-icon>
+    </div>
+  </div>
+</div>
+
+  <!-- Section Level -->
+  <div class="section-header">
+    <h2>Pilih Level</h2>
+    <p>Selesaikan semua level untuk jadi master! 🏆</p>
+  </div>
+
+  <div class="jilid-grid">
+    <div
+      class="jilid-card bounce-card"
+      *ngFor="let jilid of jilidList; let i = index"
+      [style.--delay]="i * 0.1 + 's'"
+      (click)="goToJilid(jilid.id)"
+    >
+      <div class="jilid-card-inner"
+        [style.background]="'linear-gradient(135deg,' + jilid.gradient[0] + ',' + jilid.gradient[1] + ')'">
+
+        <!-- Badge selesai -->
+        <div class="progress-badge" *ngIf="progressMap[jilid.id] > 0">
+          <ion-icon name="checkmark-circle"></ion-icon>
+          <span>Hal. {{ progressMap[jilid.id] }}</span>
+        </div>
+
+        <!-- Crown jika Level selesai -->
+        <div class="completed-crown"
+          *ngIf="gameStats && gameStats.completedJilid.includes(jilid.id)">
+          👑
+        </div>
+
+        <div class="jilid-top">
+          <span class="jilid-emoji">{{ jilid.emoji }}</span>
+          <span class="jilid-number">{{ jilid.id }}</span>
+        </div>
+
+        <div class="jilid-info">
+          <h3>{{ jilid.title }}</h3>
+          <p>{{ jilid.subtitle }}</p>
+          <div class="jilid-meta">
+            <ion-icon name="flash" color="light"></ion-icon>
+            <span>+{{ jilid.id * 10 }} XP per halaman</span>
+          </div>
+        </div>
+
+        <div class="jilid-arrow">
+          <ion-icon name="arrow-forward-circle"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="motivation-footer">
+    <p>🌸 <em>"Sebaik-baik kalian adalah orang yang belajar Al-Quran dan mengajarkannya"</em></p>
+    <p class="hadith-source">- HR. Bukhari</p>
+  </div>
+
 </ion-content>

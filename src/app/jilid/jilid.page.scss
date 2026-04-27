@@ -1,0 +1,157 @@
+.jilid-header {
+  padding: 24px 20px 32px;
+  color: white;
+  text-align: center;
+  border-radius: 0 0 32px 32px;
+  margin-bottom: 8px;
+
+  .jilid-header-emoji {
+    font-size: 3rem;
+    margin-bottom: 8px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    font-weight: 900;
+  }
+  p {
+    margin: 0 0 16px;
+    opacity: 0.85;
+    font-size: 0.9rem;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.jilid-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 8px 20px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(4px);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  ion-icon { font-size: 1rem; }
+}
+
+.stat-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.4);
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #ffeaa7;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  min-width: 4px;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffeaa7;
+  min-width: 35px;
+  text-align: right;
+}
+
+// Pages Section
+.pages-section {
+  padding: 8px 16px 32px;
+}
+
+.pages-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #2c3e50;
+  margin: 8px 0 12px;
+}
+
+.page-item {
+  background: white;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 2px solid transparent;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &.completed {
+    border-color: #d5f5e3;
+    background: #f0fdf7;
+  }
+}
+
+.page-number-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.3s;
+
+  span {
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+}
+
+.page-info {
+  flex: 1;
+  h4 {
+    margin: 0 0 3px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+  p {
+    margin: 0;
+    font-size: 0.78rem;
+    color: #7f8c8d;
+  }
+}
+
+.page-status {
+  flex-shrink: 0;
+  ion-icon { font-size: 1.8rem; }
+}
