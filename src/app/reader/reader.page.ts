@@ -35,9 +35,9 @@ export class ReaderPage implements OnInit, OnDestroy {
   ) {}
 
  async ngOnInit() {
-  // Samakan nama parameternya dengan yang ada di app-routing.module.ts
-  this.jilidId = Number(this.route.snapshot.paramMap.get('id')); // Ganti 'jilidId' jadi 'id'
-  this.pageNum = Number(this.route.snapshot.paramMap.get('page')); // Ganti 'pageNum' jadi 'page'
+  
+  this.jilidId = Number(this.route.snapshot.paramMap.get('id')); 
+  this.pageNum = Number(this.route.snapshot.paramMap.get('page'));
   
   this.currentJilid = IQRO_DATA.find(j => j.id === this.jilidId);
   this.jilidColor = this.colorMap[this.jilidId] || 'success';
@@ -98,7 +98,7 @@ export class ReaderPage implements OnInit, OnDestroy {
 
     // Tampilkan toast dengan XP
     const pesanBonus = jilidSelesai
-      ? `👑 Jilid ${jilidSelesai} Selesai! +${xpGained} XP`
+      ? `Jilid ${jilidSelesai} Selesai! +${xpGained} XP`
       : `⚡ +${xpGained} XP! Level ${newStats.level}`;
 
     const toast = await this.toastCtrl.create({

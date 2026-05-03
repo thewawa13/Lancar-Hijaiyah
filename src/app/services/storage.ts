@@ -25,7 +25,7 @@ export class StorageService {
   private PROGRESS_KEY = 'iqro_progress';
   private GAME_KEY = 'iqro_game_stats';
 
-  // ───── BOOKMARK ─────
+  //BOOKMARK 
   async saveBookmark(data: BookmarkData): Promise<void> {
     await Preferences.set({ key: this.BOOKMARK_KEY, value: JSON.stringify(data) });
   }
@@ -39,7 +39,7 @@ export class StorageService {
     await Preferences.remove({ key: this.BOOKMARK_KEY });
   }
 
-  // ───── PROGRESS ─────
+  // PROGRESS
   async saveProgress(jilidId: number, pageNumber: number): Promise<void> {
     const existing = await this.getAllProgress();
     existing[`jilid_${jilidId}`] = pageNumber;
@@ -56,7 +56,7 @@ export class StorageService {
     return all[`jilid_${jilidId}`] || 0;
   }
 
-  // ───── GAME STATS ─────
+  // GAME STATS
   async getGameStats(): Promise<GameStats> {
     const result = await Preferences.get({ key: this.GAME_KEY });
     if (result.value) return JSON.parse(result.value);
@@ -76,7 +76,6 @@ export class StorageService {
     // Tambah XP
     stats.totalXP += amount;
 
-    // Hitung level (setiap 100 XP naik level)
     stats.level = Math.floor(stats.totalXP / 100) + 1;
 
     // Update streak
@@ -92,15 +91,15 @@ export class StorageService {
       stats.lastPlayDate = today;
     }
 
-    // Badge jilid selesai
+    // Badge Level selesai
     if (jilidId && !stats.completedJilid.includes(jilidId)) {
       stats.completedJilid.push(jilidId);
       const badgeMap: Record<number, string> = {
-        1: '🏅 Juara Jilid 1',
-        2: '🥈 Juara Jilid 2',
-        3: '🥇 Juara Jilid 3',
-        4: '🏆 Juara Jilid 4',
-        5: '⭐ Juara Jilid 5',
+        1: '🏅 Juara Level 1',
+        2: '🥈 Juara Level 2',
+        3: '🥇 Juara Level 3',
+        4: '🏆 Juara Level 4',
+        5: '⭐ Juara Level 5',
       };
       if (badgeMap[jilidId]) stats.badges.push(badgeMap[jilidId]);
     }

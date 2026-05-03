@@ -8,16 +8,16 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'splash',
     pathMatch: 'full'
   },
   {
-    // TAMBAHKAN /:id supaya bisa menerima ID jilid
+   
     path: 'jilid/:id', 
     loadChildren: () => import('./jilid/jilid.module').then( m => m.JilidPageModule)
   },
   {
-    // TAMBAHKAN /:id/:page supaya bisa menerima ID jilid dan nomor halaman
+   
     path: 'reader/:id/:page', 
     loadChildren: () => import('./reader/reader.module').then( m => m.ReaderPageModule)
   },
@@ -32,6 +32,10 @@ const routes: Routes = [
   {
     path: 'game',
     loadChildren: () => import('./game/game.module').then( m => m.GamePageModule)
+  },
+  {
+    path: 'splash',
+    loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
 ];
 

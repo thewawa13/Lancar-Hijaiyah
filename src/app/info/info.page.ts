@@ -9,10 +9,9 @@ import { Browser } from '@capacitor/browser';
 })
 export class InfoPage {
   async openPrivacyPolicy() {
-    // Ganti URL ini dengan URL kebijakan privasi Anda yang sebenarnya
-    await Browser.open({
-      url: 'https://sites.google.com/view/iqrodigitalpintar-privasi',
-      windowName: '_system'
-    });
-  }
+  await Browser.open({
+    url: 'https://sites.google.com/view/privacypolicyforlancarhijaiyah/halaman-muka',
+    windowName: '_system'
+  });
+}
 }

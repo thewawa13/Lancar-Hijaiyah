@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AudioService {
 
   private audioCache: Map<string, HTMLAudioElement> = new Map();
@@ -16,8 +18,7 @@ export class AudioService {
       const audioPath = `assets/audio/${audioFile}.mp3`;
       await this.playFromFile(audioPath, audioFile, arabicText, latinText);
     } catch {
-      // Jika file MP3 tidak ditemukan, lari ke sini
-      this.speakWithTTS(latinText);
+      
     }
   }
 
@@ -27,12 +28,6 @@ export class AudioService {
 
       if (!audio) {
         audio = new Audio(path);
-        
-        // Jika file rekaman belum ada, langsung pakai TTS
-        audio.addEventListener('error', () => {
-          this.speakWithTTS(latin);
-          resolve();
-        });
 
         audio.addEventListener('canplaythrough', () => {
           this.audioCache.set(key, audio!);
@@ -47,24 +42,11 @@ export class AudioService {
 
       this.currentAudio = audio;
       this.isPlaying = true;
-      
+
       audio.play().catch(() => {
-        this.speakWithTTS(latin);
         resolve();
       });
     });
-  }
-
-  // Bagian TTS (Suara Robot) - Kita set agar lebih imut sebagai cadangan
-  private speakWithTTS(text: string): void {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'id-ID'; // Menggunakan dialek Indonesia agar tidak logat Inggris
-      utterance.rate = 0.8;    // Sedikit lambat agar fasih
-      utterance.pitch = 1.5;   // Pitch tinggi agar suara robotnya terdengar lebih imut/anak-anak
-      window.speechSynthesis.speak(utterance);
-    }
   }
 
   stopCurrent(): void {
@@ -73,9 +55,7 @@ export class AudioService {
       this.currentAudio.currentTime = 0;
       this.currentAudio = null;
     }
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
+
     this.isPlaying = false;
   }
 }

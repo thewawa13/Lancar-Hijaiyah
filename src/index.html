@@ -4,6 +4,13 @@
 <head>
   <meta charset="utf-8" />
   <title>Ionic App</title>
+  <script>
+    window.addEventListener('error', function(e) {
+      if(e.message !== 'Script error.') {
+         alert('Global Error: ' + e.message + ' at ' + e.filename + ':' + e.lineno);
+      }
+    });
+  </script>
 
   <base href="/" />
 
