@@ -230,7 +230,7 @@ export const IQRO_DATA: IqroJilid[] = [
     title: 'Level 5',
     subtitle: 'Tasydid & Bacaan Khusus',
     ...JILID_COLORS[4],
-    totalPages: 5,
+    totalPages: 4,
     pages: [
       { pageNumber: 1, title: 'Halaman 1 - Alif Lam Syamsiyah', notes: 'Al dibaca lebur ke huruf berikut',
         letters: [
